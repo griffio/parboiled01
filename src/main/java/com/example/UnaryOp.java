@@ -1,18 +1,21 @@
 package com.example;
 
-import org.parboiled.trees.ImmutableBinaryTreeNode;
+public final class UnaryOp extends ExpressionOperation {
 
-public class UnaryOp extends ImmutableBinaryTreeNode<UnaryOp> implements ValueOp {
-
-    private Integer value;
+    private final Integer value;
 
     public UnaryOp(Integer value) {
         super(null, null);
         this.value = value;
     }
 
-    public Integer getValue() {
+    public Integer value() {
         return value;
+    }
+
+    @Override
+    public void accept(ExpressionEvaluator visitor) {
+        visitor.visit(this);
     }
 
 }

@@ -1,17 +1,14 @@
 package com.example;
 
-public class AdditionOp extends BinaryOp implements ValueOp {
+public class AdditionOp extends ExpressionOperation {
 
-    public AdditionOp(ValueOp left, ValueOp right) {
-        super(new UnaryOp(left.getValue()), new UnaryOp(right.getValue()));
-    }
-
-    protected Integer add() {
-        return left().getValue() + right().getValue();
+    public AdditionOp(ExpressionOperation left, ExpressionOperation right) {
+        super(left, right);
     }
 
     @Override
-    public Integer getValue() {
-        return add();
+    public void accept(ExpressionEvaluator visitor) {
+        visitor.visit(this);
     }
+
 }

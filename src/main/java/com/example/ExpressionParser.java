@@ -5,7 +5,7 @@ import org.parboiled.Rule;
 import org.parboiled.annotations.BuildParseTree;
 
 @BuildParseTree
-public class ExpressionParser extends BaseParser<ValueOp> {
+public class ExpressionParser extends BaseParser<ExpressionOperation> {
 
     Rule Input() {
        return Sequence(Expression(),EOI);
@@ -23,19 +23,19 @@ public class ExpressionParser extends BaseParser<ValueOp> {
         return OneOrMore(CharRange('0', '9'), unaryOp());
     }
 
-    public boolean unaryOp() {
+    boolean unaryOp() {
         return push(new UnaryOp(Integer.parseInt(match())));
     }
 
-    public boolean multiplicationOp() {
-        ValueOp left = pop();
-        ValueOp right = pop();
+    boolean multiplicationOp() {
+        ExpressionOperation left = pop();
+        ExpressionOperation right = pop();
         return push(new MultiplyOp(left, right));
     }
 
-    public boolean additionOp() {
-        ValueOp left = pop();
-        ValueOp right = pop();
+    boolean additionOp() {
+        ExpressionOperation left = pop();
+        ExpressionOperation right = pop();
         return push(new AdditionOp(left, right));
     }
 

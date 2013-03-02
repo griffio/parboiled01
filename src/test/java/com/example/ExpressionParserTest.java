@@ -2,8 +2,6 @@ package com.example;
 
 import junit.framework.Assert;
 import org.parboiled.Parboiled;
-import org.parboiled.parserunners.ReportingParseRunner;
-import org.parboiled.support.ParsingResult;
 import org.parboiled.test.ParboiledTest;
 import org.testng.annotations.Test;
 
@@ -48,27 +46,6 @@ public class ExpressionParserTest extends ParboiledTest {
     public void twoMultiplyTwoMultiply() {
         ExpressionParser parser = Parboiled.createParser(ExpressionParser.class);
         test(parser.Input(), "2*2*").hasErrors("Invalid input 'EOI', expected Number (line 1, pos 5):\n2*2*\n    ^\n");
-    }
-
-    public void valueOfTwoMultiplyTwo() {
-        ExpressionParser parser = Parboiled.createParser(ExpressionParser.class);
-        ParsingResult<ValueOp> result = new ReportingParseRunner<ValueOp>(parser.Input()).run("2*2");
-        ValueOp op = result.parseTreeRoot.getValue();
-        assertEquals(op.getValue(), 4);
-    }
-
-    public void valueOfTwoMultiplyTwoAddFour() {
-        ExpressionParser parser = Parboiled.createParser(ExpressionParser.class);
-        ParsingResult<ValueOp> result = new ReportingParseRunner<ValueOp>(parser.Input()).run("2*2+4");
-        ValueOp op = result.parseTreeRoot.getValue();
-        assertEquals(op.getValue(), 8);
-    }
-
-    public void valueOfThreePlusTwoMultiplyFiveAddFour() {
-        ExpressionParser parser = Parboiled.createParser(ExpressionParser.class);
-        ParsingResult<ValueOp> result = new ReportingParseRunner<ValueOp>(parser.Input()).run("3+2*5+4");
-        ValueOp op = result.parseTreeRoot.getValue();
-        assertEquals(op.getValue(), 17);
     }
 
 }

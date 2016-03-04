@@ -1,0 +1,32 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'parboiled01'
+version = '1.0-SNAPSHOT'
+
+description = ""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+  jcenter()
+}
+
+tasks.withType(JavaCompile).each {
+  it.sourceCompatibility = JavaVersion.VERSION_1_8
+  it.targetCompatibility = JavaVersion.VERSION_1_8
+  it.options.encoding = "UTF-8"
+  it.options.compilerArgs = ["-Xlint:all"]
+}
+
+test {
+  useTestNG()
+  minHeapSize = "128m"
+  maxHeapSize = "128m"
+}
+
+dependencies {
+    compile ('org.parboiled:parboiled-java:1.1.7')
+    testCompile('org.testng:testng:6.2.1')
+}
